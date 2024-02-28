@@ -1,15 +1,23 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useLogin } from "../hooks/useLogin";
+import { Navigate } from "react-router-dom";
+import { useAuthContext } from "../hooks/useAuthContext";
+import logo from "../assets/images/login.png";
 
 const LoginPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const { login, isLoading, error } = useLogin();
+  const { user } = useAuthContext();
+
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log({ email, password });
+    await login(email, password);
   };
-
+  if (user) return <Navigate to={"/"} />;
   return (
     <div className="auth-board">
       <form onSubmit={handleSubmit} className="auth-form">
@@ -31,11 +39,13 @@ const LoginPage = () => {
           value={password}
         />
         <button
+          disabled={isLoading}
           type="submit"
           className="bg-secondary w-max px-3 py-1 rounded-md hover:bg-third font-semibold"
         >
           Login
         </button>
+        {error && <p className="bg-red-600 text-white">{error}</p>}
         <div className="  text-neutral-200 ">
           <span className="mr-2">Dont have an account?</span>
           <Link to={"/signup"} className="hover:text-slate-600 ">

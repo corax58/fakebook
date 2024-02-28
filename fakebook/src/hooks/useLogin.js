@@ -2,17 +2,17 @@ import { useState } from "react";
 import { useAuthContext } from "./useAuthContext";
 import axios from "axios";
 
-export const useSignup = () => {
+export const useLogin = () => {
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(null);
   const { dispatch } = useAuthContext();
 
-  const signup = async (email, password) => {
+  const login = async (email, password) => {
     setIsLoading(true);
     setError(null);
 
     axios
-      .post(import.meta.env.VITE_SERVER_URL + "/user/signup", {
+      .post(import.meta.env.VITE_SERVER_URL + "/user/login", {
         email,
         password,
       })
@@ -30,5 +30,5 @@ export const useSignup = () => {
       });
   };
 
-  return { signup, isLoading, error };
+  return { login, isLoading, error };
 };

@@ -5,26 +5,14 @@ import { Dialog } from "@headlessui/react";
 import SimpleMDE from "react-simplemde-editor";
 import "easymde/dist/easymde.min.css";
 import "./postforum.css";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import axios from "axios";
+import useNewPost from "../hooks/useNewPost";
 
 const PostForum = () => {
   const headingRef = useRef();
-  const bodyRef = useRef();
-  const queryclient = useQueryClient();
-  const createPost = useMutation({
-    mutationFn: (post) =>
-      axios
-        .post(import.meta.env.VITE_SERVER_URL + "/posts", post)
-        .then((res) => res.data),
-    onSuccess: (data) => {
-      queryclient.invalidateQueries({
-        queryKey: ["posts"],
-      });
-    },
-  });
+  const createPost = useNewPost();
 
   const handleSubmit = (e) => {
+    e.preventDefault();
     // console.log({ heading: e.target[0].value, body: e.target[1].value });
     createPost.mutate({
       heading: e.target[0].value,
@@ -32,7 +20,8 @@ const PostForum = () => {
     });
   };
 
-  if (createPost.error) alert(createPost.error.message);
+  if (createPost.error && !createPost.waitingForContext)
+    alert(createPost.error.message);
   return (
     <>
       {/* Open the modal using document.getElementById('ID').showModal() method */}
@@ -59,7 +48,7 @@ const PostForum = () => {
               />
               <label className=" font-medium text-lg">Body</label>
 
-              <SimpleMDE className="" ref={bodyRef} />
+              <SimpleMDE className="" />
               <button className="bg-primary " disabled={createPost.isPending}>
                 {createPost.isPending ? "Posting..." : "Post"}
               </button>

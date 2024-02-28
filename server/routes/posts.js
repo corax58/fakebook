@@ -7,8 +7,12 @@ const {
   updatePost,
 } = require("../controllers/postController");
 
+const requireAuth = require("../middleware/requireAuth");
+
 const router = express.Router();
 
+// require auth
+router.use(requireAuth);
 //get all posts
 router.get("/", getAllPosts);
 

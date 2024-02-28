@@ -13,6 +13,6 @@
     @apply bg-secondary  w-full flex justify-center h-screen items-center;
   }
   .auth-form {
-    @apply flex  bg-primary flex-col w-1/4 h-96 space-y-4 rounded-md p-4;
+    @apply flex  bg-primary flex-col w-1/2 md:w-1/2 sm:w-4/5  h-max space-y-4 rounded-md p-4;
   }
 }

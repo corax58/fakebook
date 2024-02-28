@@ -9,7 +9,7 @@ import { useLogout } from "../hooks/useLogout";
 const NavBar = () => {
   const { logout } = useLogout();
   const handleLogout = () => {
-    logout;
+    logout();
   };
   return (
     <nav className=" h-14 w-full  bg-primary border-b border-b-third flex-row flex justify-between  items-center shadow-md">

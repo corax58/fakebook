@@ -1,11 +1,14 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { useSignup } from "../hooks/useSignup";
+import { Navigate } from "react-router-dom";
+import { useAuthContext } from "../hooks/useAuthContext";
 
 const SingupPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const { signup, error, isLoading } = useSignup();
+  const { user } = useAuthContext();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -13,7 +16,7 @@ const SingupPage = () => {
 
     await signup(email, password);
   };
-
+  if (user) return <Navigate to={"/"} />;
   return (
     <div className="auth-board">
       <form onSubmit={handleSubmit} className="auth-form ">
@@ -43,7 +46,9 @@ const SingupPage = () => {
         </button>
         {error && <p className="bg-red-600 text-white">{error}</p>}
         <div className="text-neutral-200">
-          <span className="  text-neutral-200 ">Already have an account </span>
+          <span className="  text-neutral-200 ">
+            Already have an account ?{" "}
+          </span>
           <Link to={"/login"} className="hover:text-slate-600 ">
             Login
           </Link>
