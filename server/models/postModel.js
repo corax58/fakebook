@@ -4,6 +4,9 @@ const Schema = mongoose.Schema;
 
 const postSchema = new Schema(
   {
+    postedBy: {
+      type: String,
+    },
     heading: {
       type: String,
       required: true,

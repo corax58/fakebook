@@ -5,6 +5,7 @@ import { Navigate } from "react-router-dom";
 import { useAuthContext } from "../hooks/useAuthContext";
 
 const SingupPage = () => {
+  const [userName, setUserName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const { signup, error, isLoading } = useSignup();
@@ -14,7 +15,7 @@ const SingupPage = () => {
     e.preventDefault();
     console.log({ email, password });
 
-    await signup(email, password);
+    await signup(userName, email, password);
   };
   if (user) return <Navigate to={"/"} />;
   return (
@@ -23,6 +24,13 @@ const SingupPage = () => {
         <h3 className=" text-2xl font-bold mx-auto text-neutral-200 font-serif">
           Sing up
         </h3>
+        <label htmlFor="userName">Username</label>
+        <input
+          type="text"
+          id="userName"
+          value={userName}
+          onChange={(e) => setUserName(e.target.value)}
+        />
         <label htmlFor="email">Email</label>
         <input
           id="email"

@@ -5,6 +5,11 @@ const validator = require("validator");
 const Schema = mongoose.Schema;
 
 const userSchema = new Schema({
+  userName: {
+    type: String,
+    require: true,
+    unique: true,
+  },
   email: {
     type: String,
     required: true,
@@ -18,9 +23,24 @@ const userSchema = new Schema({
 
 //static signup method
 
-userSchema.statics.signup = async function (email, password) {
-  if (!email || !password) {
+const validateUserName = (userName) => {
+  var regex = /^[a-zA-Z0-9]+$/;
+
+  // Test the string against the regular expression
+  return regex.test(userName);
+};
+
+userSchema.statics.signup = async function (userName, email, password) {
+  if (!email || !password || !userName) {
     throw Error(" all fields must be filled");
+  }
+
+  const validUserName = validateUserName(userName);
+
+  if (!validUserName) {
+    throw Error(
+      "Please dont include whitespaces nor special characters in the user name"
+    );
   }
 
   if (!validator.isEmail(email)) {
@@ -30,16 +50,21 @@ userSchema.statics.signup = async function (email, password) {
     throw Error("weak Password");
   }
 
-  const exists = await this.findOne({ email });
+  const emailExists = await this.findOne({ email });
+  const userNameExists = await this.findOne({ userName });
 
-  if (exists) {
+  if (emailExists) {
     throw Error("Email already in use");
+  }
+  if (userNameExists) {
+    throw Error("User Name already in use pick a diffrent one");
   }
 
   const salt = await bcrypt.genSalt(10);
   const hash = await bcrypt.hash(password, salt);
 
   const user = await this.create({
+    userName,
     email,
     password: hash,
   });
@@ -48,15 +73,21 @@ userSchema.statics.signup = async function (email, password) {
 
 //static login
 
-userSchema.statics.login = async function (email, password) {
-  if (!email || !password) {
+userSchema.statics.login = async function (emailOrUserName, password) {
+  let user = null;
+
+  if (!emailOrUserName || !password) {
     throw Error(" all fields must be filled");
   }
 
-  const user = await this.findOne({ email });
+  if (validator.isEmail(emailOrUserName)) {
+    user = await this.findOne({ email: emailOrUserName });
+  } else {
+    user = await this.findOne({ userName: emailOrUserName });
+  }
 
   if (!user) {
-    throw Error("Incorrect email");
+    throw Error("There  is no user with this user name or email ");
   }
 
   const match = await bcrypt.compare(password, user.password);

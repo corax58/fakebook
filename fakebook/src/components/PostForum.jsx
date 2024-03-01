@@ -6,15 +6,18 @@ import SimpleMDE from "react-simplemde-editor";
 import "easymde/dist/easymde.min.css";
 import "./postforum.css";
 import useNewPost from "../hooks/useNewPost";
+import { useAuthContext } from "../hooks/useAuthContext";
 
 const PostForum = () => {
   const headingRef = useRef();
   const createPost = useNewPost();
+  const { user } = useAuthContext();
 
   const handleSubmit = (e) => {
     e.preventDefault();
     // console.log({ heading: e.target[0].value, body: e.target[1].value });
     createPost.mutate({
+      postedBy: user.userName,
       heading: e.target[0].value,
       body: e.target[1].value,
     });
@@ -48,7 +51,7 @@ const PostForum = () => {
               />
               <label className=" font-medium text-lg">Body</label>
 
-              <SimpleMDE className="" />
+              <SimpleMDE />
               <button className="bg-primary " disabled={createPost.isPending}>
                 {createPost.isPending ? "Posting..." : "Post"}
               </button>

@@ -6,7 +6,7 @@ import { useAuthContext } from "../hooks/useAuthContext";
 import logo from "../assets/images/login.png";
 
 const LoginPage = () => {
-  const [email, setEmail] = useState("");
+  const [emailOrUserName, setEmailOrUserName] = useState("");
   const [password, setPassword] = useState("");
   const { login, isLoading, error } = useLogin();
   const { user } = useAuthContext();
@@ -15,7 +15,7 @@ const LoginPage = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    await login(email, password);
+    await login(emailOrUserName, password);
   };
   if (user) return <Navigate to={"/"} />;
   return (
@@ -24,12 +24,12 @@ const LoginPage = () => {
         <h3 className=" text-2xl font-bold mx-auto text-neutral-200 font-serif">
           Login
         </h3>
-        <label htmlFor="email">Email</label>
+        <label htmlFor="emailOrUserName">Enter Email or User Name</label>
         <input
-          id="email"
-          type="email"
-          onChange={(e) => setEmail(e.target.value)}
-          value={email}
+          id="emailOrUserName"
+          type="text"
+          onChange={(e) => setEmailOrUserName(e.target.value)}
+          value={emailOrUserName}
         />
         <label htmlFor="password">Password</label>
         <input

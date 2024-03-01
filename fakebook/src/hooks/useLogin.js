@@ -7,13 +7,13 @@ export const useLogin = () => {
   const [isLoading, setIsLoading] = useState(null);
   const { dispatch } = useAuthContext();
 
-  const login = async (email, password) => {
+  const login = async (emailOrUserName, password) => {
     setIsLoading(true);
     setError(null);
 
     axios
       .post(import.meta.env.VITE_SERVER_URL + "/user/login", {
-        email,
+        emailOrUserName,
         password,
       })
       .then((res) => {

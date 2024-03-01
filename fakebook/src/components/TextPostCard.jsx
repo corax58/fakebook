@@ -1,7 +1,12 @@
 import React, { useState } from "react";
 
 const TextPostCard = ({ post }) => {
-  const userName = "Some User";
+  let userName = "Some User";
+  const date = post.createdAt.slice(0, 10);
+
+  if (post.postedBy) {
+    userName = post.postedBy;
+  }
   const profilePicture =
     "https://i1.sndcdn.com/artworks-000189080723-ez2uad-t500x500.jpg";
 
@@ -14,21 +19,22 @@ const TextPostCard = ({ post }) => {
   }
 
   return (
-    <div className=" bg-primary h-max w-full p-4 m-2 rounded-md">
+    <div className=" bg-primary h-max  p-4 m-2 rounded-md w-full  transition-transform duration-500">
       <div className="flex mb-2">
         <img
           src={profilePicture}
           alt="profile picture "
           className=" w-12 rounded-full m-1"
         />
-        <div className="h-auto w-full flex items-center ml-2">
-          <span className=" font-semibold text-neutral-200">
+        <div className="h-auto w-full flex  ml-2 flex-col">
+          <span className=" font-semibold text-neutral-200 text-lg ">
             {userName[0].toUpperCase() + userName.substring(1)}
           </span>
+          <span className="">{date}</span>
         </div>
       </div>
       <div className="h-px w-full bg-neutral-600  "></div>
-      <div className="text-neutral-200 mt-3">
+      <div className="text-neutral-200 mt-3 text-wrap  overflow-hidden transition-transform duration-500 ">
         <h1 className=" text-xl  font-semibold mb-2 ">{post.heading}</h1>
         <PostBody text={post.body} />
       </div>
@@ -49,7 +55,7 @@ const PostBody = ({ text }) => {
 
   if (postBody.islong)
     return loaded ? (
-      <pre>
+      <pre className=" text-wrap ">
         {postBody.body}{" "}
         <button
           onClick={() => setLoaded(false)}
@@ -59,7 +65,7 @@ const PostBody = ({ text }) => {
         </button>{" "}
       </pre>
     ) : (
-      <pre>
+      <pre className=" text-wrap">
         {postBody.body.slice(0, 100)}...
         <button
           onClick={() => setLoaded(true)}

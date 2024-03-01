@@ -27,10 +27,11 @@ const getSinglePost = async (req, res) => {
 
 // create a new post
 const createPost = async (req, res) => {
-  const { heading, body } = req.body;
+  const { postedBy, heading, body } = req.body;
 
   try {
     const post = await Post.create({
+      postedBy,
       heading,
       body,
       likes: 0,
