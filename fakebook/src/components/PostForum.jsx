@@ -2,7 +2,7 @@ import React, { useRef, useState } from "react";
 import { FaUserAlt, FaPhotoVideo } from "react-icons/fa";
 import { CgMenuBoxed } from "react-icons/cg";
 import { Dialog } from "@headlessui/react";
-import SimpleMDE from "react-simplemde-editor";
+import SimpleMdeReact from "react-simplemde-editor";
 import "easymde/dist/easymde.min.css";
 import "./postforum.css";
 import useNewPost from "../hooks/useNewPost";
@@ -10,6 +10,8 @@ import { useAuthContext } from "../hooks/useAuthContext";
 
 const PostForum = () => {
   const headingRef = useRef();
+  const [heading, setHeading] = useState("");
+  const [body, setBody] = useState("");
   const createPost = useNewPost();
   const { user } = useAuthContext();
 
@@ -18,9 +20,12 @@ const PostForum = () => {
     // console.log({ heading: e.target[0].value, body: e.target[1].value });
     createPost.mutate({
       postedBy: user.userName,
-      heading: e.target[0].value,
-      body: e.target[1].value,
+      heading: heading,
+      body: body,
     });
+
+    setHeading("");
+    setBody("");
   };
 
   if (createPost.error && !createPost.waitingForContext)
@@ -48,10 +53,17 @@ const PostForum = () => {
                 name=""
                 id="title"
                 className=" bg-primary h-10 rounded-md pl-3 border-neutral-200 border text-neutral-100"
+                value={heading}
+                onChange={(e) => setHeading(e.target.value)}
               />
               <label className=" font-medium text-lg">Body</label>
 
-              <SimpleMDE />
+              <SimpleMdeReact
+                value={body}
+                onChange={(value) => {
+                  setBody(value);
+                }}
+              />
               <button className="bg-primary " disabled={createPost.isPending}>
                 {createPost.isPending ? "Posting..." : "Post"}
               </button>
