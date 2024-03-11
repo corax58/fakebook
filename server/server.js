@@ -14,12 +14,9 @@ const postRouter = require("./routes/posts");
 const userRouter = require("./routes/user");
 
 //middlewares
-
+app.use(express.static("public/profilePictures"));
 app.use(cors());
 app.use(express.json());
-app.use((req, res, next) => {
-  next();
-});
 
 //routes
 app.use("/api/posts", postRouter);

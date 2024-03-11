@@ -1,5 +1,5 @@
 const User = require("../models/userModel");
-
+const upload = require("../data/fileUploader");
 const jwt = require("jsonwebtoken");
 
 const createToken = (_id) => {
@@ -17,7 +17,14 @@ const loginUser = async (req, res) => {
 
     const token = createToken(user._id);
 
-    res.status(200).json({ userName: user.userName, email: user.email, token });
+    res
+      .status(200)
+      .json({
+        userName: user.userName,
+        email: user.email,
+        profilePic: user.profilePic,
+        token,
+      });
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
@@ -25,15 +32,27 @@ const loginUser = async (req, res) => {
 
 //signup user
 const signupUser = async (req, res) => {
+  let profilePic;
+  if (!req.file) {
+    profilePic = "";
+  } else {
+    profilePic = req.file.filename;
+  }
+
   const { userName, email, password } = req.body;
   // validation
-
+  console.log(profilePic);
   try {
-    const user = await User.signup(userName, email, password);
+    const user = await User.signup(profilePic, userName, email, password);
 
     const token = createToken(user._id);
 
-    res.status(200).json({ userName: user.userName, email: user.email, token });
+    res.status(200).json({
+      userName: user.userName,
+      email: user.email,
+      profilePic: user.profilePic,
+      token,
+    });
   } catch (error) {
     res.status(400).json({ error: error.message });
   }

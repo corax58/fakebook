@@ -19,6 +19,9 @@ const userSchema = new Schema({
     type: String,
     required: true,
   },
+  profilePic: {
+    type: String,
+  },
 });
 
 //static signup method
@@ -30,7 +33,12 @@ const validateUserName = (userName) => {
   return regex.test(userName);
 };
 
-userSchema.statics.signup = async function (userName, email, password) {
+userSchema.statics.signup = async function (
+  profilePic,
+  userName,
+  email,
+  password
+) {
   if (!email || !password || !userName) {
     throw Error(" all fields must be filled");
   }
@@ -67,6 +75,7 @@ userSchema.statics.signup = async function (userName, email, password) {
     userName,
     email,
     password: hash,
+    profilePic,
   });
   return user;
 };

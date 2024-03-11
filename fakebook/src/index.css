@@ -7,7 +7,7 @@
     @apply w-28 rounded-lg h-12 hover:bg-third transition;
   }
   .right-nav-icon {
-    @apply bg-third p-2 rounded-full hover:bg-neutral-600 transition;
+    @apply bg-third  rounded-full hover:bg-neutral-600 transition;
   }
   .auth-board {
     @apply bg-secondary  w-full flex justify-center h-screen items-center;

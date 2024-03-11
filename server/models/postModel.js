@@ -5,7 +5,12 @@ const Schema = mongoose.Schema;
 const postSchema = new Schema(
   {
     postedBy: {
-      type: String,
+      userName: {
+        type: String,
+      },
+      profilePic: {
+        type: String,
+      },
     },
     heading: {
       type: String,

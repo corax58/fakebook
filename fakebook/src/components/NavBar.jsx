@@ -60,7 +60,7 @@ const NavBar = () => {
       <div className="w-full justify-end flex">
         <div className="flex space-x-2 ">
           <div
-            className="right-nav-icon
+            className="right-nav-icon p-2
         "
           >
             <IoMdNotifications size={28} className=" text-neutral-300" />
@@ -68,8 +68,15 @@ const NavBar = () => {
 
           <div className="dropdown dropdown-end">
             <div tabIndex={0} role="button">
-              <div className="right-nav-icon">
-                <FaUserAlt size={28} className=" text-neutral-300" />
+              <div className="right-nav-icon overflow-hidden size-12">
+                {user.profilePic ? (
+                  <img
+                    src={import.meta.env.VITE_SERVER_URL + user.profilePic}
+                    className=" size-12"
+                  />
+                ) : (
+                  <FaUserAlt size={28} className=" text-neutral-300" />
+                )}
               </div>
             </div>
             <ul

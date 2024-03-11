@@ -2,10 +2,14 @@ import React, { useState } from "react";
 
 const TextPostCard = ({ post }) => {
   let userName = "Some User";
+  let profilePic = "";
   const date = post.createdAt.slice(0, 10);
 
-  if (post.postedBy) {
-    userName = post.postedBy;
+  if (post.postedBy.userName) {
+    userName = post.postedBy.userName;
+  }
+  if (post.postedBy.profilePic) {
+    profilePic = import.meta.env.VITE_SERVER_URL + post.postedBy.profilePic;
   }
   const profilePicture =
     "https://i1.sndcdn.com/artworks-000189080723-ez2uad-t500x500.jpg";
@@ -22,13 +26,13 @@ const TextPostCard = ({ post }) => {
     <div className=" bg-primary h-max  p-4 m-2 rounded-md w-full  transition-transform duration-500">
       <div className="flex mb-2">
         <img
-          src={profilePicture}
+          src={profilePic ? profilePic : profilePicture}
           alt="profile picture "
-          className=" w-12 rounded-full m-1"
+          className=" size-12 rounded-full m-1"
         />
         <div className="h-auto w-full flex  ml-2 flex-col">
           <span className=" font-semibold text-neutral-200 text-lg ">
-            {userName[0].toUpperCase() + userName.substring(1)}
+            {userName}
           </span>
           <span className="">{date}</span>
         </div>

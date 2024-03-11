@@ -9,7 +9,7 @@ const useNewPost = () => {
   const mutation = useMutation({
     mutationFn: (post) =>
       axios
-        .post(import.meta.env.VITE_SERVER_URL + "/posts", post, {
+        .post(import.meta.env.VITE_SERVER_API_URL + "/posts", post, {
           headers: {
             Authorization: `Bearer ${user.token}`,
           },

@@ -19,7 +19,7 @@ const PostForum = () => {
     e.preventDefault();
     // console.log({ heading: e.target[0].value, body: e.target[1].value });
     createPost.mutate({
-      postedBy: user.userName,
+      postedBy: { userName: user.userName, profilePic: user.profilePic },
       heading: heading,
       body: body,
     });

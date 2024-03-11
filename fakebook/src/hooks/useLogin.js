@@ -12,7 +12,7 @@ export const useLogin = () => {
     setError(null);
 
     axios
-      .post(import.meta.env.VITE_SERVER_URL + "/user/login", {
+      .post(import.meta.env.VITE_SERVER_API_URL + "/user/login", {
         emailOrUserName,
         password,
       })

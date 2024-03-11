@@ -7,15 +7,22 @@ export const useSignup = () => {
   const [isLoading, setIsLoading] = useState(null);
   const { dispatch } = useAuthContext();
 
-  const signup = async (userName, email, password) => {
+  const signup = async (profilePic, userName, email, password) => {
+    const formData = new FormData();
+
+    formData.append("profilePic", profilePic);
+    formData.append("userName", userName);
+    formData.append("email", email);
+    formData.append("password", password);
     setIsLoading(true);
     setError(null);
-
+    const something = { profilePic, userName, email, password };
+    console.log(formData.get("profilePic"));
     axios
-      .post(import.meta.env.VITE_SERVER_URL + "/user/signup", {
-        userName,
-        email,
-        password,
+      .post(import.meta.env.VITE_SERVER_API_URL + "/user/signup", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
       })
       .then((res) => {
         setIsLoading(false);

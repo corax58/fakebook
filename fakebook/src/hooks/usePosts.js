@@ -8,7 +8,7 @@ const usePosts = () => {
 
   const fetchPosts = () =>
     axios
-      .get(import.meta.env.VITE_SERVER_URL + "/posts", {
+      .get(import.meta.env.VITE_SERVER_API_URL + "/posts", {
         headers: {
           Authorization: `Bearer ${user.token}`,
         },
