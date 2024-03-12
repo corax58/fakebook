@@ -35,12 +35,16 @@ const SingupPage = () => {
   };
   if (user) return <Navigate to={"/"} />;
   return (
-    <div className="auth-board">
-      <div className="flex h-5/6 rounded-md overflow-hidden">
-        <img src={getinimage} alt="login" className=" opacity-80 " />
+    <div className="auth-board ">
+      <div className="flex h-max  rounded-md overflow-hidden md:w-4/5 sm:w-11/12 sm:h-max md:h-max">
+        <img
+          src={getinimage}
+          alt="login"
+          className=" opacity-80 sm:hidden  w-80"
+        />
         <form
           onSubmit={handleSubmit}
-          className="auth-form h-full "
+          className="auth-form h-full sm:w-full "
           encType="multipart/form-data"
         >
           <h3 className=" text-2xl font-bold mx-auto text-neutral-200 font-serif">
@@ -67,7 +71,7 @@ const SingupPage = () => {
             </p>
           )}
 
-          <div className="flex flex-col space-y-8 ">
+          <div className="flex flex-col space-y-4 ">
             <div className=" input-area">
               <label htmlFor="userName">Username</label>
               <input

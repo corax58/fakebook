@@ -1,18 +1,19 @@
 import React from "react";
 import logo from "../assets/images/logo.png";
-import { GoSearch, GoHomeFill } from "react-icons/go";
-import { FaUserFriends, FaPhotoVideo, FaUserAlt } from "react-icons/fa";
+import { GoSearch } from "react-icons/go";
+import { FaUserAlt } from "react-icons/fa";
 import { IoMdNotifications } from "react-icons/io";
 import { RiLogoutBoxLine } from "react-icons/ri";
 import { useLogout } from "../hooks/useLogout";
 import { useAuthContext } from "../hooks/useAuthContext";
-import { useSearchParams } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import { useState } from "react";
 import { useQueryClient } from "@tanstack/react-query";
 
 const SearchCard = () => {
-  const [searchQuery, setSearchQuery] = useState("");
   const [searchParams, setSearchParams] = useSearchParams();
+
+  const [searchQuery, setSearchQuery] = useState(searchParams.get("query"));
   const queryclient = useQueryClient();
 
   let userContext = {
@@ -31,10 +32,6 @@ const SearchCard = () => {
     logout();
   };
 
-  const handleSearch = () => {
-    setSearchParams({ q: searchQuery });
-  };
-
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log(e.target[0].value);
@@ -44,13 +41,15 @@ const SearchCard = () => {
   return (
     <nav className=" h-14 w-full  bg-primary border-b border-b-third flex-row flex justify-between sm:justify-strech items-center shadow-md">
       <div className="w-full justify-start sm:w-max flex">
-        <div className="flex flex-row items-center space-x-2 ml-2 h-full ">
-          <img
-            src={logo}
-            alt="fakebook logo"
-            className="h-10 sm:w-12 rounded-full mr-5"
-          />
-        </div>
+        <Link to={"/"}>
+          <div className="flex flex-row items-center space-x-2 ml-2 h-full ">
+            <img
+              src={logo}
+              alt="fakebook logo"
+              className="h-10 sm:w-12 rounded-full mr-5"
+            />
+          </div>{" "}
+        </Link>
       </div>
       <div className="w-full justify-center flex">
         <div className="flex flex-row space-x-4  w-full">
@@ -64,6 +63,7 @@ const SearchCard = () => {
               className=" rounded-full  h-10 bg-third pl-8 w-full"
               placeholder={"Search Fakebook"}
               onChange={(e) => setSearchQuery(e.target.value)}
+              value={searchQuery}
             />
             <GoSearch
               className=" absolute ml-2  text-neutral-500 font-semibold"

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import logo from "../assets/images/logo.png";
 import { GoSearch, GoHomeFill } from "react-icons/go";
 import { FaUserFriends, FaPhotoVideo, FaUserAlt } from "react-icons/fa";
@@ -6,43 +6,69 @@ import { IoMdNotifications } from "react-icons/io";
 import { RiLogoutBoxLine } from "react-icons/ri";
 import { useLogout } from "../hooks/useLogout";
 import { useAuthContext } from "../hooks/useAuthContext";
+import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const NavBar = () => {
+  const [searchQuery, setSearchQuery] = useState("");
+
+  const navigate = useNavigate();
+
   const { user } = useAuthContext();
   console.log(user);
   const { logout } = useLogout();
   const handleLogout = () => {
     logout();
   };
+
+  const handleSearchSubmit = (e) => {
+    e.preventDefault();
+
+    navigate(`/search?query=${searchQuery}`);
+  };
+
   return (
     <nav className=" h-14 w-full  bg-primary border-b border-b-third flex-row flex justify-between  items-center shadow-md">
       <div className="w-full justify-start flex">
         <div className="flex flex-row items-center space-x-2 ml-2 h-full">
-          <img src={logo} alt="fakebook logo" className="h-10 rounded-full" />
-          <div className="bg-third p-3 rounded-full hidden md:flex">
-            <GoSearch size={20} className="" />
-          </div>
-          <form action="" className="flex flex-row items-center md:hidden">
+          <Link to={"/"}>
+            <img
+              src={logo}
+              alt="fakebook logo"
+              className="size-10 rounded-full"
+            />
+          </Link>
+
+          <form
+            action=""
+            className="flex flex-row items-center "
+            onSubmit={handleSearchSubmit}
+          >
             <GoSearch
               className=" absolute ml-2  text-neutral-500 font-semibold"
               size={20}
             />
             <input
               type="text"
-              className=" rounded-full  h-10 bg-third pl-8 "
+              className=" rounded-full  h-10 bg-third pl-8 md:w-36 sm:w-mmin"
               placeholder={"Search Fakebook"}
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
             />
           </form>
         </div>
       </div>
-      <div className="w-full justify-center flex">
+      <div className="w-full justify-center sm:hidden flex">
         <div className="flex flex-row space-x-4 sm:hidden ">
-          <div className="navbar-icon group items-center justify-center flex">
-            <GoHomeFill
-              className="text-neutral-300 group-hover:text-accent"
-              size={28}
-            />
-          </div>
+          <Link>
+            <div className="navbar-icon group items-center justify-center flex">
+              <GoHomeFill
+                className="text-neutral-300 group-hover:text-accent"
+                size={28}
+              />{" "}
+            </div>
+          </Link>
+
           <div className="navbar-icon group items-center justify-center flex">
             <FaUserFriends
               className="text-neutral-300 group-hover:text-accent"
@@ -57,7 +83,7 @@ const NavBar = () => {
           </div>
         </div>
       </div>
-      <div className="w-full justify-end flex">
+      <div className="w-full sm:w-max justify-end flex">
         <div className="flex space-x-2 ">
           <div
             className="right-nav-icon p-2

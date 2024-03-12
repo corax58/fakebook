@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useLogin } from "../hooks/useLogin";
 import { Navigate } from "react-router-dom";
 import { useAuthContext } from "../hooks/useAuthContext";
-import logo from "../assets/images/login.png";
+import LoginImage from "../assets/images/login.png";
 
 const LoginPage = () => {
   const [emailOrUserName, setEmailOrUserName] = useState("");
@@ -20,39 +20,54 @@ const LoginPage = () => {
   if (user) return <Navigate to={"/"} />;
   return (
     <div className="auth-board">
-      <form onSubmit={handleSubmit} className="auth-form">
-        <h3 className=" text-2xl font-bold mx-auto text-neutral-200 font-serif">
-          Login
-        </h3>
-        <label htmlFor="emailOrUserName">Enter Email or User Name</label>
-        <input
-          id="emailOrUserName"
-          type="text"
-          onChange={(e) => setEmailOrUserName(e.target.value)}
-          value={emailOrUserName}
+      <div className=" h-2/4 flex md:w-4/5">
+        <img
+          src={LoginImage}
+          alt="login"
+          className=" size-full rounded-l-md sm:hidden"
         />
-        <label htmlFor="password">Password</label>
-        <input
-          id="password"
-          type="password"
-          onChange={(e) => setPassword(e.target.value)}
-          value={password}
-        />
-        <button
-          disabled={isLoading}
-          type="submit"
-          className="bg-secondary w-max px-3 py-1 rounded-md hover:bg-third font-semibold"
-        >
-          Login
-        </button>
-        {error && <p className="bg-red-600 text-white">{error}</p>}
-        <div className="  text-neutral-200 ">
-          <span className="mr-2">Dont have an account?</span>
-          <Link to={"/signup"} className="hover:text-slate-600 ">
-            Register
-          </Link>
-        </div>
-      </form>
+        <form onSubmit={handleSubmit} className="auth-form space-y-5 w-full">
+          <h3 className=" text-2xl font-bold mx-auto text-neutral-200 font-serif">
+            Login
+          </h3>
+
+          <div className="flex flex-col">
+            <label htmlFor="emailOrUserName">Enter Email or User Name</label>
+            <input
+              className=" text-input"
+              id="emailOrUserName"
+              type="text"
+              onChange={(e) => setEmailOrUserName(e.target.value)}
+              value={emailOrUserName}
+            />
+          </div>
+          <div className="flex flex-col">
+            <label htmlFor="password">Password</label>
+            <input
+              className="text-input"
+              id="password"
+              type="password"
+              onChange={(e) => setPassword(e.target.value)}
+              value={password}
+            />
+          </div>
+
+          <button
+            disabled={isLoading}
+            type="submit"
+            className="bg-secondary w-max px-3 py-1 rounded-md hover:bg-third font-semibold"
+          >
+            Login
+          </button>
+          {error && <p className="bg-red-600 text-white">{error}</p>}
+          <div className="  text-neutral-200 ">
+            <span className="mr-2">Dont have an account?</span>
+            <Link to={"/signup"} className="hover:text-slate-600 ">
+              Register
+            </Link>
+          </div>
+        </form>
+      </div>
     </div>
   );
 };

@@ -1,20 +1,33 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
-import useSearch from "../hooks/useSearch";
+import axios from "axios";
 import TextPostCard from "./TextPostCard";
+import { useAuthContext } from "../hooks/useAuthContext";
 
 const SearchedPostsPanel = () => {
+  const { user } = useAuthContext();
   const [searchParams, setSearchParams] = useSearchParams();
-  const { data, isLoading, error } = useSearch(searchParams.get("query"));
+  const [error, setError] = useState();
+  const [data, setData] = useState();
 
-  console.log(data);
-  if (isLoading) {
-    return <div>Loading...</div>;
-  }
+  useEffect(() => {
+    const q = searchParams.get("query");
+    if (user) {
+      axios
+        .get(import.meta.env.VITE_SERVER_API_URL + "/posts/search/" + q, {
+          headers: {
+            Authorization: `Bearer ${user.token}`,
+          },
+        })
+        .then((res) => setData(res.data))
+        .catch((error) => setError(error));
+    }
+  }, [searchParams.get("query")]);
+
   if (error) {
     return <div>Error</div>;
   }
-  if (!data) {
+  if (!data || data.length === 0) {
     return <div>No posts found</div>;
   }
   return (

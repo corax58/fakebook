@@ -16,7 +16,6 @@ export const useSignup = () => {
     formData.append("password", password);
     setIsLoading(true);
     setError(null);
-    const something = { profilePic, userName, email, password };
     console.log(formData.get("profilePic"));
     axios
       .post(import.meta.env.VITE_SERVER_API_URL + "/user/signup", formData, {

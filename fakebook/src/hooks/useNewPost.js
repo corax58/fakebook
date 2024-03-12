@@ -15,7 +15,7 @@ const useNewPost = () => {
           },
         })
         .then((res) => res.data),
-    onSuccess: (data) => {
+    onSuccess: () => {
       queryclient.invalidateQueries({
         queryKey: ["posts"],
       });

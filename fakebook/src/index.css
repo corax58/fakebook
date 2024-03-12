@@ -13,7 +13,7 @@
     @apply bg-secondary  w-full flex justify-center h-screen items-center;
   }
   .auth-form {
-    @apply flex  bg-primary flex-col w-1/2 md:w-1/2 sm:w-4/5  h-max space-y-3 rounded-md rounded-l-none p-4;
+    @apply flex  bg-primary flex-col w-1/2 md:w-1/2 sm:w-4/5  h-full space-y-3    rounded-md rounded-l-none p-4;
   }
   .text-input {
     @apply h-10 text-neutral-200 pl-2 rounded;
