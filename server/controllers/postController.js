@@ -25,6 +25,11 @@ const getSinglePost = async (req, res) => {
   res.status(200).json(post);
 };
 
+const getSearchPosts = async (req, res) => {
+  const { query } = req.params;
+  const posts = await Post.find({ heading: { $regex: query, $options: "i" } });
+  res.status(200).json(posts);
+};
 // create a new post
 const createPost = async (req, res) => {
   const { postedBy, heading, body } = req.body;
@@ -87,6 +92,7 @@ module.exports = {
   createPost,
   getAllPosts,
   getSinglePost,
+  getSearchPosts,
   deletePost,
   updatePost,
 };

@@ -3,6 +3,7 @@ const {
   createPost,
   getAllPosts,
   getSinglePost,
+  getSearchPosts,
   deletePost,
   updatePost,
 } = require("../controllers/postController");
@@ -18,6 +19,9 @@ router.get("/", getAllPosts);
 
 //get a single post
 router.get("/:id", getSinglePost);
+
+//get search
+router.get("/search/:query", getSearchPosts);
 
 //POST a post
 router.post("/", createPost);
