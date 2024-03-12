@@ -64,6 +64,7 @@ const SingupPage = () => {
             accept=".png, .jpg, .jpeg"
             name="profilePic"
             onChange={handleProfilePic}
+            className=" bg-neutral-800 text-white "
           />
           {fileTypeError && (
             <p className="bg-red-600 text-white">
@@ -73,7 +74,9 @@ const SingupPage = () => {
 
           <div className="flex flex-col space-y-4 ">
             <div className=" input-area">
-              <label htmlFor="userName">Username</label>
+              <label htmlFor="userName" className="text-neutral-400">
+                Username
+              </label>
               <input
                 className="text-input"
                 type="text"
@@ -83,7 +86,9 @@ const SingupPage = () => {
               />
             </div>
             <div className=" input-area">
-              <label htmlFor="email">Email</label>
+              <label htmlFor="email" className="text-neutral-400">
+                Email
+              </label>
               <input
                 className="text-input"
                 id="email"
@@ -93,7 +98,9 @@ const SingupPage = () => {
               />
             </div>
             <div className=" input-area">
-              <label htmlFor="password">Password</label>
+              <label htmlFor="password" className="text-neutral-400">
+                Password
+              </label>
               <input
                 className="text-input"
                 id="password"
@@ -106,7 +113,7 @@ const SingupPage = () => {
             <button
               disabled={isLoading || fileTypeError}
               type="submit"
-              className="bg-secondary w-max px-3 py-1 rounded-md hover:bg-third font-semibold disabled:bg-red-500 disabled:text-white"
+              className="bg-secondary w-max px-3 py-1 rounded-md hover:bg-third font-semibold disabled:bg-red-500 disabled:text-white  text-neutral-400"
             >
               Create an account
             </button>

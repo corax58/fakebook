@@ -60,7 +60,7 @@ const SearchCard = () => {
           >
             <input
               type="text"
-              className=" rounded-full  h-10 bg-third pl-8 w-full"
+              className=" rounded-full  h-10 bg-third pl-8 w-full text-neutral-400"
               placeholder={"Search Fakebook"}
               onChange={(e) => setSearchQuery(e.target.value)}
               value={searchQuery}
@@ -103,7 +103,9 @@ const SearchCard = () => {
                   <span className=" font-semibold text-neutral-300 text-base ">
                     {userContext.userName}
                   </span>
-                  <span className="  text-sm ">{userContext.email}</span>
+                  <span className=" text-neutral-400 text-sm ">
+                    {userContext.email}
+                  </span>
                 </div>
               </li>
               <li>

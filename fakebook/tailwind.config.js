@@ -16,6 +16,9 @@ export default {
       sm: { max: "640px" },
       // => @media (max-width: 639px) { ... }
     },
+    daisyui: {
+      themes: false,
+    },
     extend: {
       colors: {
         primary: "#242526",

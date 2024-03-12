@@ -32,7 +32,9 @@ const LoginPage = () => {
           </h3>
 
           <div className="flex flex-col">
-            <label htmlFor="emailOrUserName">Enter Email or User Name</label>
+            <label htmlFor="emailOrUserName" className="text-neutral-400">
+              Enter Email or User Name
+            </label>
             <input
               className=" text-input"
               id="emailOrUserName"
@@ -42,7 +44,9 @@ const LoginPage = () => {
             />
           </div>
           <div className="flex flex-col">
-            <label htmlFor="password">Password</label>
+            <label htmlFor="password" className="text-neutral-400">
+              Password
+            </label>
             <input
               className="text-input"
               id="password"
@@ -55,7 +59,7 @@ const LoginPage = () => {
           <button
             disabled={isLoading}
             type="submit"
-            className="bg-secondary w-max px-3 py-1 rounded-md hover:bg-third font-semibold"
+            className="bg-secondary w-max px-3 py-1 rounded-md hover:bg-third font-semibold text-neutral-400"
           >
             Login
           </button>

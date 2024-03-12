@@ -50,7 +50,7 @@ const NavBar = () => {
             />
             <input
               type="text"
-              className=" rounded-full  h-10 bg-third pl-8 md:w-36 sm:w-mmin"
+              className=" rounded-full  h-10 bg-third pl-8 md:w-36 sm:w-mmin text-neutral-400"
               placeholder={"Search Fakebook"}
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
@@ -114,7 +114,9 @@ const NavBar = () => {
                   <span className=" font-semibold text-neutral-300 text-base ">
                     {user.userName}
                   </span>
-                  <span className="  text-sm ">{user.email}</span>
+                  <span className=" text-neutral-400 text-sm ">
+                    {user.email}
+                  </span>
                 </div>
               </li>
               <li>

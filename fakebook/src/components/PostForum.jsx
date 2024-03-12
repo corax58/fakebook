@@ -86,13 +86,13 @@ const PostForum = () => {
         </div>
         <div className=" h-px w-full bg-neutral-400 "></div>
         <div className="flex  pt-2">
-          <div className="w-full  flex justify-center hover:bg-neutral-700 rounded-md">
+          <div className="w-full  flex justify-center hover:bg-neutral-700 rounded-md text-neutral-400">
             <div className="flex space-x-1 p-2">
               <CgMenuBoxed size={28} />
               <span>TEXT</span>
             </div>
           </div>
-          <div className="w-full flex justify-center hover:bg-neutral-700 rounded-md">
+          <div className="w-full flex justify-center hover:bg-neutral-700 rounded-md text-neutral-400">
             <div className="flex space-x-1 p-2">
               <FaPhotoVideo size={28} />
               <span>PHOTOS</span>

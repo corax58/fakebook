@@ -34,7 +34,7 @@ const TextPostCard = ({ post }) => {
           <span className=" font-semibold text-neutral-200 text-lg ">
             {userName}
           </span>
-          <span className="">{date}</span>
+          <span className="text-neutral-400">{date}</span>
         </div>
       </div>
       <div className="h-px w-full bg-neutral-600  "></div>
